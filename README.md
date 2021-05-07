@@ -2,6 +2,8 @@
 
 온라인에서 야구 게임을 하는 서비스
 
+## [팀원소개, 팀자랑](https://github.com/ghojeong/baseball/wiki/%ED%8C%80%EC%9B%90-%EC%86%8C%EA%B0%9C,-%ED%8C%80%EC%9E%90%EB%9E%91)
+
 ## 기획
 
 - [웹 기획서](https://docs.google.com/presentation/d/1KY4myrtBFlvr6eKvgl-CVv5Cbk1zQlo1GkTz4hNjXqE/edit?usp=sharing)
