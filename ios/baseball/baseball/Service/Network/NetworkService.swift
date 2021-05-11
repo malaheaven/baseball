@@ -8,9 +8,11 @@
 import Foundation
 import RxSwift
 import Alamofire
+import RxAlamofire
 
 protocol NetworkServiceable {
     func get<T: Codable>(path: APIPath, id: String?) -> Observable<T>
+    func post<T: Codable>(path: APIPath, id: String?) -> Observable<T>
 }
 
 class NetworkService: NetworkServiceable {
@@ -35,7 +37,6 @@ class NetworkService: NetworkServiceable {
                 switch response.result {
                 case .success(let data):
                     do {
-                        print(T.self)
                         let model : T = try JSONDecoder().decode(T.self, from: data)
                         observer.onNext(model)
                     } catch  {
@@ -51,5 +52,17 @@ class NetworkService: NetworkServiceable {
                 dataRequest.cancel()
             }
         })
+    }
+    
+    func post<T: Codable>(path: APIPath, id: String? = nil) -> Observable<T> {
+        let path = "\"\(path)/\(id ?? "")"
+        return RxAlamofire
+            .request(.post, path, parameters: .none)
+            .debug()
+            .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .default))
+            .data()
+            .map({ data -> T in
+                return try JSONDecoder().decode(T.self, from: data)
+            })
     }
 }

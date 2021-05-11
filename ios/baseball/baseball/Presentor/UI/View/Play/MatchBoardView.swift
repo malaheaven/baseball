@@ -33,4 +33,6 @@ final class MatchBoardView: UIView {
     func configureInningInfo(inningInfo: InningInfo) {
         inningInfoLabel.text = "\(inningInfo.inningCount)회\(inningInfo.makeTopOrBottom()) \(inningInfo.makeOffenseOrDefence())"
     }
+    @IBAction func pitchButtonTapped(_ sender: Any) {
+    }
 }

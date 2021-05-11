@@ -30,7 +30,6 @@ struct EndPoint: URLRequestConvertible {
         var component = URLComponents()
         component.scheme = "http"
         component.host = "baseball.pyro-squad.com"
-//        component.port = 3030
         component.path = "/\(path.rawValue)" + (id != nil ? "/\(id!)" : "")
         let url = component.url
         return url

@@ -11,8 +11,8 @@ import RxSwift
 class PlayViewModel {
     private(set) var matchInfo = BehaviorSubject<MatchInfo>(value: MatchInfo())
     private var playUseCase: PlayUseCasePort!
-    lazy private(set) var pitchInfo = matchInfo.map {
-        $0.pitcherInfo
+    lazy private(set) var pitchInfo = matchInfo.map { matchInfo -> PitchInfo in
+        return PitchInfo(info: matchInfo.pitcherInfo)
     }
     
     lazy private(set) var scores = matchInfo.map {

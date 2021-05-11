@@ -26,8 +26,9 @@ class PlayViewController: UIViewController {
         
         viewModel.pitchInfo
             .observe(on: MainScheduler.instance)
+            .map { $0.info }
             .bind(to: collectionView.rx.items(cellIdentifier: PitchInfoCell.reuseIdentifier, cellType: PitchInfoCell.self)) { index, item, cell in
-                cell.configureCell(order: index, pitchInfo: [true, true])
+                cell.configureCell(order: index, pitchInfo: item)
             }
             .disposed(by: disposeBag)
         
