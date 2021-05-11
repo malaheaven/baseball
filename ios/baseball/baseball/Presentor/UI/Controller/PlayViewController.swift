@@ -16,17 +16,16 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var matchUpView: MatchUpView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var id: String!
+    private var matchId: String!
     private var viewModel: PlayViewModel!
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = PlayViewModel(id: id)
+        viewModel = PlayViewModel(id: matchId)
         
         viewModel.pitchInfo
             .observe(on: MainScheduler.instance)
-            .map { $0.info }
             .bind(to: collectionView.rx.items(cellIdentifier: PitchInfoCell.reuseIdentifier, cellType: PitchInfoCell.self)) { index, item, cell in
                 cell.configureCell(order: index, pitchInfo: item)
             }
@@ -39,7 +38,7 @@ class PlayViewController: UIViewController {
     }
     
     func initId(_ id: String) {
-        self.id = id
+        self.matchId = id
     }
     
     private func configureScoreView() {
