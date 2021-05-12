@@ -35,6 +35,10 @@ class PlayViewModel {
         return SBO(strike: matchInfo.strike, ball: matchInfo.ball, out: matchInfo.outCount)
     }
     
+    lazy private(set) var isOffense = matchInfo.map {
+        $0.inningInfo.userOffense
+    }
+    
     init(playUseCase: PlayUseCasePort = PlayUseCase(), id: String) {
         self.playUseCase = playUseCase
         self.fetchMatchInfo(id: id)

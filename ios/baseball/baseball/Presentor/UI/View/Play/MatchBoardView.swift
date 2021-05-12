@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class MatchBoardView: UIView {
     @IBOutlet weak var sboBoardView: SBOBoardView!
@@ -34,6 +35,8 @@ final class MatchBoardView: UIView {
     func configureInningInfo(inningInfo: InningInfo) {
         inningInfoLabel.text = "\(inningInfo.inningCount)회\(inningInfo.makeUseHalf()) \(inningInfo.makeUserPlay())"
     }
-    @IBAction func pitchButtonTapped(_ sender: Any) {
+    
+    func configureIsUserOffnese(isOffense: Bool) {
+        pitchButton.isHidden = isOffense
     }
 }

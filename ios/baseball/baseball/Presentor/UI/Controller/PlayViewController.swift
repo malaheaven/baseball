@@ -36,6 +36,7 @@ class PlayViewController: UIViewController {
         configureInnginInfoLabel()
         configureMatchUpInfoView()
         configureSBOBoardView()
+        configurePitchButton()
     }
     
     private func configureCollectionView() {
@@ -86,6 +87,16 @@ class PlayViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
                 self.matchBoardView.configureSBOBoardView(sbo: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configurePitchButton() {
+        self.viewModel.isOffense
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                print("isOffense", $0)
+                self.matchBoardView.configureIsUserOffnese(isOffense: $0)
             })
             .disposed(by: disposeBag)
     }
