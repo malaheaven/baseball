@@ -8,7 +8,12 @@
 import Foundation
 import RxSwift
 
-class PlayUseCase: UseCasePort, PostUseCasePort {
+protocol PlayUseCasePort {
+    func get<T: Codable>(path: APIPath, id: String?) -> Observable<T>
+    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?>
+}
+
+class PlayUseCase: PlayUseCasePort {
     private var networkService: NetworkServiceable
     
     init(networkService: NetworkServiceable = NetworkService()) {
@@ -19,7 +24,7 @@ class PlayUseCase: UseCasePort, PostUseCasePort {
         return networkService.get(path: .progress, id: id)
     }
     
-    func post<T>(path: APIPath, id: String?) -> Observable<T> where T : Decodable, T : Encodable {
-        return networkService.post(path: .progress, id: id)
+    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?> {
+        return networkService.post(path: .match, id: id, selectedTeam: selectedTeam)
     }
 }

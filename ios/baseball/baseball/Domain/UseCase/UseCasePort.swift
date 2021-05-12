@@ -13,7 +13,7 @@ protocol UseCasePort {
 }
 
 protocol PostUseCasePort {
-    func post<T: Codable>(path: APIPath, id: String?) -> Observable<T>
+    func post<T: Codable>(path: APIPath, id: String, selectedTeam: String) -> Observable<T>
 }
 
 protocol ListUseCasePort {

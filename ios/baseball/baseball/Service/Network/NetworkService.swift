@@ -12,7 +12,8 @@ import RxAlamofire
 
 protocol NetworkServiceable {
     func get<T: Codable>(path: APIPath, id: String?) -> Observable<T>
-    func post<T: Codable>(path: APIPath, id: String?) -> Observable<T>
+    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?>
+    func postEnterGame(id: String, selectedTeam: String, completionHandler: @escaping (Int) -> ())
 }
 
 class NetworkService: NetworkServiceable {
@@ -54,15 +55,26 @@ class NetworkService: NetworkServiceable {
         })
     }
     
-    func post<T: Codable>(path: APIPath, id: String? = nil) -> Observable<T> {
-        let path = "\"\(path)/\(id ?? "")"
+    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?> {
+        let path = "\"\(path)"
+        let parameters: [String: Any] = ["id": id, "selectedTeam": selectedTeam]
+
         return RxAlamofire
-            .request(.post, path, parameters: .none)
+            .request(.post, path, parameters: parameters)
             .debug()
             .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .default))
-            .data()
-            .map({ data -> T in
-                return try JSONDecoder().decode(T.self, from: data)
+            .response()
+            .map({ result in
+                return result.statusCode
             })
+    }
+    
+    func postEnterGame(id: String, selectedTeam: String, completionHandler: @escaping (Int) -> ()) {
+        let parameters: [String: Any] = ["id": id, "selectedTeam": selectedTeam]
+        guard let url = EndPoint(method: .post, path: .match, id: .none).url else { return }
+        
+        AF.request(url, parameters: parameters).response { response in
+            completionHandler(response.response?.statusCode ?? 400)
+        }
     }
 }
