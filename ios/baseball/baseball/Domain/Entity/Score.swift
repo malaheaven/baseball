@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Score: Codable {
+struct ScoreInfo: Codable {
+    private (set) var homeName: String
+    private (set) var awayName: String
     private (set) var awayScore: Int
     private (set) var homeScore: Int
 }

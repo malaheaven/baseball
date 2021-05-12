@@ -29,9 +29,13 @@ class GameListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         collectionView.rx.modelSelected(Match.self).subscribe(onNext: { [weak self] item in
-            self?.showPlayTab(id: item.id)
-        })
-        .disposed(by: disposeBag)
+            self?.showAlert(title: "팀 선택", message: .none, style: .actionSheet,
+                            actions: [TeamSelectAlertAction.action(title: item.away, style: .default), TeamSelectAlertAction.action(title: item.home, style: .default)]
+                                      
+             ).subscribe(onNext: { [weak self] _ in
+                self?.showPlayTab(id: item.id)
+             })
+        }).disposed(by: disposeBag)
     }
     
     private func showPlayTab(id: String) {
@@ -40,6 +44,24 @@ class GameListViewController: UIViewController {
         guard let playViewController = mainTabBarController.children.first as? PlayViewController else { return }
         playViewController.initId(id)
         present(mainTabBarController, animated: true, completion: .none)
+    }
+    
+    private func showAlert(title: String?, message: String?, style: UIAlertController.Style, actions: [TeamSelectAlertAction]) -> Observable<Int> {
+        return Observable.create { observer in
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+            
+            actions.enumerated().forEach { index, action in
+                let action = UIAlertAction(title: action.title, style: action.style) { _ in
+                    observer.onNext(index)
+                    observer.onCompleted()
+                }
+                alertController.addAction(action)
+            }
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            return Disposables.create { alertController.dismiss(animated: true, completion: nil) }
+        }
     }
 }
 

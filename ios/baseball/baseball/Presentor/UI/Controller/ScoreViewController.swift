@@ -52,7 +52,7 @@ class ScoreViewController: UIViewController {
         self.viewModel.scores
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
-                self.scoreView.configureScore(score: $0)
+                self.scoreView.configureScore(scoreInfo: $0)
             })
             .disposed(by: disposeBag)
     }

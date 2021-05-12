@@ -8,13 +8,13 @@
 import Foundation
 
 struct GameInfo: Codable {
-    private(set) var scores: Score
+    private(set) var scores: ScoreInfo
     private(set) var innings: Innings
     private(set) var awayPlayers: Players
     private(set) var homePlayers: Players
     
     init() {
-        self.scores = Score(awayScore: 0, homeScore: 0)
+        self.scores = ScoreInfo(homeName:"", awayName: "", awayScore: 0, homeScore: 0)
         self.innings = Innings(home: [], away: [])
         self.awayPlayers = Players()
         self.homePlayers = Players()

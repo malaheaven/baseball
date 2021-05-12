@@ -23,29 +23,35 @@ class PlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = PlayViewModel(id: matchId)
-        
-        viewModel.pitchInfo
-            .observe(on: MainScheduler.instance)
-            .bind(to: collectionView.rx.items(cellIdentifier: PitchInfoCell.reuseIdentifier, cellType: PitchInfoCell.self)) { index, item, cell in
-                cell.configureCell(order: index, pitchInfo: item)
-            }
-            .disposed(by: disposeBag)
-        
-        configureScoreView()
-        configureInnginInfoLabel()
-        configureMatchUpInfoView()
-        configureSBOBoardView()
+        setupBindings()
     }
     
     func initId(_ id: String) {
         self.matchId = id
     }
     
+    private func setupBindings() {
+        configureCollectionView()
+        configureScoreView()
+        configureInnginInfoLabel()
+        configureMatchUpInfoView()
+        configureSBOBoardView()
+    }
+    
+    private func configureCollectionView() {
+        viewModel.pitchInfo
+            .observe(on: MainScheduler.instance)
+            .bind(to: collectionView.rx.items(cellIdentifier: PitchInfoCell.reuseIdentifier, cellType: PitchInfoCell.self)) { index, item, cell in
+                cell.configureCell(order: index, pitchInfo: item)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     private func configureScoreView() {
         self.viewModel.scores
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
-                self.scoreView.configureScore(score: $0)
+                self.scoreView.configureScore(scoreInfo: $0)
             })
             .disposed(by: disposeBag)
     }

@@ -44,6 +44,7 @@
 		93E9666D26486139005C9F6C /* PlayersHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E9666C26486139005C9F6C /* PlayersHistoryCell.swift */; };
 		93E966AD26496046005C9F6C /* PitchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E966AC26496045005C9F6C /* PitchInfo.swift */; };
 		93E966C7264A652F005C9F6C /* UseCasePort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E966C6264A652F005C9F6C /* UseCasePort.swift */; };
+		93E966EC264B7539005C9F6C /* TeamSelectAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E966EB264B7539005C9F6C /* TeamSelectAlertAction.swift */; };
 		A03DB670041063072849A07E /* Pods_baseball.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6185C5821FDF374680999A /* Pods_baseball.framework */; };
 		B04466A32640E5E900DAD616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04466A22640E5E900DAD616 /* AppDelegate.swift */; };
 		B04466A52640E5E900DAD616 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04466A42640E5E900DAD616 /* SceneDelegate.swift */; };
@@ -127,6 +128,7 @@
 		93E9666C26486139005C9F6C /* PlayersHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersHistoryCell.swift; sourceTree = "<group>"; };
 		93E966AC26496045005C9F6C /* PitchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchInfo.swift; sourceTree = "<group>"; };
 		93E966C6264A652F005C9F6C /* UseCasePort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCasePort.swift; sourceTree = "<group>"; };
+		93E966EB264B7539005C9F6C /* TeamSelectAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectAlertAction.swift; sourceTree = "<group>"; };
 		9DE1AC5DF34B16FA735B56F7 /* Pods_baseballTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baseballTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6185C5821FDF374680999A /* Pods_baseball.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baseball.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B044669F2640E5E800DAD616 /* baseball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = baseball.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				93E964F32640F8B8005C9F6C /* MatchCell.swift */,
+				93E966EB264B7539005C9F6C /* TeamSelectAlertAction.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				93E9662426455E0F005C9F6C /* MatchUseCase.swift in Sources */,
 				93E9651B26413F42005C9F6C /* ScoreView.swift in Sources */,
 				93E9654D26438261005C9F6C /* InningInfoLabel.swift in Sources */,
+				93E966EC264B7539005C9F6C /* TeamSelectAlertAction.swift in Sources */,
 				93E96544264379BC005C9F6C /* InningNumberStack.swift in Sources */,
 				93E965AB2643B715005C9F6C /* PitchOrderView.swift in Sources */,
 				93E9652E2641474F005C9F6C /* MatchUpView.swift in Sources */,
