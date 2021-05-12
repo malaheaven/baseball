@@ -19,7 +19,11 @@ class GameListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureCollectionView()
+        configureTeamSelectAlert()
+    }
+    
+    private func configureCollectionView() {
         viewModel.matchs
             .observe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: MatchCell.reuseIdentifier, cellType: MatchCell.self)) { index, item, cell in
@@ -28,16 +32,19 @@ class GameListViewController: UIViewController {
                 cell.numberLabel.text = "GAME \(index+1)"
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func configureTeamSelectAlert() {
         collectionView.rx.modelSelected(Match.self).subscribe(onNext: { [weak self] item in
             self?.showAlert(title: "팀 선택", message: .none, style: .actionSheet,
-                            actions: [TeamSelectAlertAction.action(title: item.away, style: .default),                      TeamSelectAlertAction.action(title: item.home, style: .default),
-                                      TeamSelectAlertAction.action(title: "취소", style: .cancel)
-                            ]                                      
+                            actions: [TeamSelectAlertAction.action(title: item.away, style: .default),                      TeamSelectAlertAction.action(title: item.home, style: .default)
+                            ]
              ).subscribe(onNext: { [weak self] selectedTeam in
                 self?.viewModel.enterGame(id: item.id, selectedTeam: selectedTeam, completionHandler: { enterCode in
                     if enterCode == self?.isEnterAllowCode {
                         self?.showPlayTab(id: item.id)
+                    } else {
+                        self?.showAlertTeamNotSelectable()
                     }
                 })
              })
@@ -68,6 +75,14 @@ class GameListViewController: UIViewController {
             
             return Disposables.create { alertController.dismiss(animated: true, completion: nil) }
         }
+    }
+    
+    private func showAlertTeamNotSelectable() {
+        let alertController = UIAlertController(title: "팀 선택 불가",
+                                      message: "이미 다른 사용자가 게임을 진행중입니다.",
+                                      preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "확인", style: .default))
+        present(alertController, animated: true)
     }
 }
 
