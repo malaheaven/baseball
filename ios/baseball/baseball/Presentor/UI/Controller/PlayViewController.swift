@@ -15,9 +15,11 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var matchBoardView: MatchBoardView!
     @IBOutlet weak var matchUpView: MatchUpView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var pitchButton: PitchButton!
     
     private var matchId: String!
     private var viewModel: PlayViewModel!
+    private let updateMatchUpDataQueue = DispatchQueue(label: "matchUpDataQueue")
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -36,7 +38,8 @@ class PlayViewController: UIViewController {
         configureInnginInfoLabel()
         configureMatchUpInfoView()
         configureSBOBoardView()
-        configurePitchButton()
+        configureIsOffenseView()
+        configureGroundBasesView()
     }
     
     private func configureCollectionView() {
@@ -91,13 +94,43 @@ class PlayViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func configurePitchButton() {
+    private func configureIsOffenseView() {
         self.viewModel.isOffense
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
-                print("isOffense", $0)
-                self.matchBoardView.configureIsUserOffnese(isOffense: $0)
+                self.pitchButton.configureIsUserOffnese(isOffense: $0)
+                if $0 { self.requestPitchingWhileOffense() }
             })
             .disposed(by: disposeBag)
+        
+        self.viewModel.isOffense
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.matchUpView.configureMatchUpCheckbox(isOffense: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureGroundBasesView() {
+        self.viewModel.bases
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.matchBoardView.groundView.configureBaseView(bases: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func requestPitch() {
+        self.viewModel.requestPitch(id: self.matchId)
+    }
+    
+    private func requestPitchingWhileOffense() {
+        self.updateMatchUpDataQueue.asyncAfter(deadline: .now() + 3) {
+            self.requestPitch()
+        }
+    }
+    
+    @IBAction func pitchButtonTapped(_ sender: Any) {
+        requestPitch()
     }
 }
