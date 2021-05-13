@@ -36,11 +36,14 @@ class GameListViewController: UIViewController {
     
     private func configureTeamSelectAlert() {
         collectionView.rx.modelSelected(Match.self).subscribe(onNext: { [weak self] item in
-            self?.showAlert(title: "팀 선택", message: .none, style: .actionSheet,
-                            actions: [TeamSelectAlertAction.action(title: item.away, style: .default),                      TeamSelectAlertAction.action(title: item.home, style: .default)
+            self?.showAlert(title: "게임할 팀 선택", message: .none, style: .actionSheet,
+                            actions: [TeamSelectAlertAction.action(title: item.away, style: .default),                     TeamSelectAlertAction.action(title: item.home, style: .default),
+                                      TeamSelectAlertAction.action(title: "닫기", style: .cancel),
                             ]
-             ).subscribe(onNext: { [weak self] selectedTeam in
-                self?.viewModel.enterGame(id: item.id, selectedTeam: selectedTeam, completionHandler: { enterCode in
+             ).subscribe(onNext: { [weak self] action in
+                self?.viewModel.enterGame(id: item.id, selectedTeam: action.title, completionHandler: { enterCode in
+                    guard action.style != .cancel else { return }
+                    
                     if enterCode == self?.isEnterAllowCode {
                         self?.showPlayTab(id: item.id)
                     } else {
@@ -59,13 +62,13 @@ class GameListViewController: UIViewController {
         present(mainTabBarController, animated: true, completion: .none)
     }
     
-    private func showAlert(title: String?, message: String?, style: UIAlertController.Style, actions: [TeamSelectAlertAction]) -> Observable<String> {
+    private func showAlert(title: String?, message: String?, style: UIAlertController.Style, actions: [TeamSelectAlertAction]) -> Observable<TeamSelectAlertAction> {
         return Observable.create { observer in
             let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
             
             actions.enumerated().forEach { index, action in
                 let action = UIAlertAction(title: action.title, style: action.style) { _ in
-                    observer.onNext(action.title)
+                    observer.onNext(action)
                     observer.onCompleted()
                 }
                 alertController.addAction(action)
