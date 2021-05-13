@@ -12,7 +12,6 @@ final class MatchBoardView: UIView {
     @IBOutlet weak var sboBoardView: SBOBoardView!
     @IBOutlet weak var groundView: GroundView!
     @IBOutlet weak var inningInfoLabel: UILabel!
-    @IBOutlet weak var pitchButton: PitchButton!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -34,9 +33,5 @@ final class MatchBoardView: UIView {
     
     func configureInningInfo(inningInfo: InningInfo) {
         inningInfoLabel.text = "\(inningInfo.inningCount)회\(inningInfo.makeUseHalf()) \(inningInfo.makeUserPlay())"
-    }
-    
-    func configureIsUserOffnese(isOffense: Bool) {
-        pitchButton.isHidden = isOffense
     }
 }

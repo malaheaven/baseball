@@ -23,4 +23,26 @@ final class GroundView: UIView {
             self.addSubview(view)
         }
     }
+    
+    func configureBaseView(bases: [Bool]) {
+        guard bases.count != 0 else { return }
+        
+        if bases[0] == true {
+            firstBaseView.backgroundColor = .systemYellow
+        } else {
+            firstBaseView.backgroundColor = .systemBackground
+        }
+        
+        if bases[1] == true {
+            secondBaseView.backgroundColor = .systemYellow
+        } else {
+            secondBaseView.backgroundColor = .systemBackground
+        }
+        
+        if bases[2] == true {
+            thirdBaseView.backgroundColor = .systemYellow
+        } else {
+            thirdBaseView.backgroundColor = .systemBackground
+        }
+    }
 }
