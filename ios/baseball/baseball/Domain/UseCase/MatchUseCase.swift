@@ -10,7 +10,6 @@ import RxSwift
 
 protocol MatchUseCasePort {
     func get<T: Codable>(path: APIPath, id: String?) -> Observable<[T]>
-    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?>
     func enterGame(id: String, selectedTeam: String, completionHandler: @escaping (Int) -> ())
 }
 
@@ -25,11 +24,7 @@ class MatchUseCase: MatchUseCasePort {
     func get<T>(path: APIPath, id: String?) -> Observable<[T]> where T : Decodable, T : Encodable {
         return networkService.get(path: .match, id: nil)
     }
-    
-    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?> {
-        return networkService.post(path: .match, id: id, selectedTeam: selectedTeam)
-    }
-    
+   
     func enterGame(id: String, selectedTeam: String, completionHandler: @escaping (Int) -> ()) {
         networkService.postEnterGame(id: id, selectedTeam: selectedTeam) { statusCode in
             self.gameEnterCode = statusCode

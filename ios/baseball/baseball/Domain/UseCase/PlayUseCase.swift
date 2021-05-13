@@ -10,7 +10,7 @@ import RxSwift
 
 protocol PlayUseCasePort {
     func get<T: Codable>(path: APIPath, id: String?) -> Observable<T>
-    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?>
+    func requestPitch<T: Codable>(id: String) -> Observable<T>
 }
 
 class PlayUseCase: PlayUseCasePort {
@@ -24,7 +24,7 @@ class PlayUseCase: PlayUseCasePort {
         return networkService.get(path: .progress, id: id)
     }
     
-    func post(path: APIPath, id: String, selectedTeam: String) -> Observable<Int?> {
-        return networkService.post(path: .match, id: id, selectedTeam: selectedTeam)
+    func requestPitch<T>(id: String) -> Observable<T> where T : Decodable, T : Encodable {
+        return networkService.requestPitch(path: .progress, id: id)
     }
 }
