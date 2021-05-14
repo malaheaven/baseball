@@ -19,6 +19,14 @@ class ScoreViewModel {
         $0.innings
     }
     
+    lazy private(set) var homeBatters = gameInfo.map {
+        $0.homePlayers.batters
+    }
+    
+    lazy private(set) var awayBatters = gameInfo.map {
+        $0.awayPlayers.batters
+    }
+    
     init(scoreUseCase: UseCasePort = ScoreUseCase(), id: String) {
         self.scoreUseCase = scoreUseCase
         self.fetchGameInfo(id: id)

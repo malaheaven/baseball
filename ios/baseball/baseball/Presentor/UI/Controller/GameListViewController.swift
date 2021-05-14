@@ -58,7 +58,9 @@ class GameListViewController: UIViewController {
         guard let mainTabBarController = storyboard?.instantiateViewController(identifier: "MainTabBarController") else { return }
         mainTabBarController.modalPresentationStyle = .fullScreen
         guard let playViewController = mainTabBarController.children.first as? PlayViewController else { return }
+        guard let scoreViewController = mainTabBarController.children.last as? ScoreViewController else { return }
         playViewController.initId(id)
+        scoreViewController.initId(id)
         present(mainTabBarController, animated: true, completion: .none)
     }
     

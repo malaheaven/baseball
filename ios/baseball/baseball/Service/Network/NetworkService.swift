@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import Alamofire
-import RxAlamofire
 
 protocol NetworkServiceable {
     func get<T: Codable>(path: APIPath, id: String?) -> Observable<T>

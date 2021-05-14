@@ -10,6 +10,7 @@ import RxSwift
 
 class PlayersHistoryCell: UICollectionViewCell {
     static let reuseIdentifier = "PlayersHistoryCell"
+    
     private var disposeBag = DisposeBag()
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -20,5 +21,13 @@ class PlayersHistoryCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         disposeBag = DisposeBag()
+    }
+    
+    func configureCell(batter: Batter) {
+        nameLabel.text = batter.name
+        plateAppearancesLabel.text = "\(batter.plateAppearances)"
+        hitLabel.text = "\(batter.hit)"
+        outLabel.text = "\(batter.out)"
+        avgLabel.text = "\(batter.average)"
     }
 }
