@@ -39,6 +39,7 @@ class NetworkService: NetworkServiceable {
                     do {
                         let model : T = try JSONDecoder().decode(T.self, from: data)
                         observer.onNext(model)
+                        observer.onCompleted()
                     } catch  {
                         assertionFailure("NetworkService.get.dataRequest.responseData. case: .success")
                     }
