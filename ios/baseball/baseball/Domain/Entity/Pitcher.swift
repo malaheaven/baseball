@@ -12,5 +12,5 @@ struct Pitcher: Codable {
     private (set) var numberOfPitching: Int
     private (set) var hit: Int
     private (set) var baseOnBalls: Int
-    private (set) var innings: Int
+    private (set) var innings: Float
 }

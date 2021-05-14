@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 final class MatchBoardView: UIView {
     @IBOutlet weak var sboBoardView: SBOBoardView!
     @IBOutlet weak var groundView: GroundView!
     @IBOutlet weak var inningInfoLabel: UILabel!
-    @IBOutlet weak var pitchButton: PitchButton!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

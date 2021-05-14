@@ -16,14 +16,17 @@ class PitchInfoCell: UICollectionViewCell {
     @IBOutlet weak var sboLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
     
-    //수정 필요 PitchInfo 데이터타입
-    func configureCell(order: Int, pitchInfo: [Bool]) {
-        pitchOrderView.pitchOrderLabel.text = "\(order)"
-        sboLabel.text = "스트라이크" //변경
+    func configureCell(order: Int, pitchInfo: Bool) {
+        pitchOrderView.pitchOrderLabel.text = "\(order+1)"
+        sboLabel.text = makeSBString(sb: pitchInfo)
         countLabel.text = "1-3" //변경
     }
     
     override func prepareForReuse() {
         disposeBag = DisposeBag()
+    }
+    
+    private func makeSBString(sb: Bool) -> String {
+        return sb ? "스트라이크" : "볼"
     }
 }

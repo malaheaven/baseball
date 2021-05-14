@@ -24,8 +24,8 @@ class ScoreView: UIView {
         }
     }
     
-    func configureScore(score: Score) {
-        homeScoreLabel.text = "\(score.homeScore)"
-        awayScoreLabel.text = "\(score.awayScore)"
+    func configureScore(scoreInfo: ScoreInfo) {
+        homeScoreLabel.text = "\(scoreInfo.homeScore) \(scoreInfo.homeName)"
+        awayScoreLabel.text = "\(scoreInfo.awayName) \(scoreInfo.awayScore)"
     }
 }

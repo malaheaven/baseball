@@ -19,6 +19,9 @@ final class MatchUpView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
+        
+        isOffenseCheckbox.isHidden = true
+        isDefenceCheckbox.isHidden = true
     }
     
     func commonInit() {
@@ -36,5 +39,15 @@ final class MatchUpView: UIView {
     func configureBatterMatchUpView(_ batter: Batter) {
         batterNameLabel.text = batter.name
         battingHistoryLabel.text = "\(batter.plateAppearances)타수\(batter.hit)안타"
+    }
+    
+    func configureMatchUpCheckbox(isOffense: Bool) {
+        if isOffense {
+            isOffenseCheckbox.isHidden = true
+            isDefenceCheckbox.isHidden = false
+        } else {
+            isOffenseCheckbox.isHidden = false
+            isDefenceCheckbox.isHidden = true
+        }
     }
 }

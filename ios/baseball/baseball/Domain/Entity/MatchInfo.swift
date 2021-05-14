@@ -8,7 +8,7 @@
 import Foundation
 
 struct MatchInfo: Codable {
-    private (set) var scores: Score
+    private (set) var scores: ScoreInfo
     private (set) var strike: Int
     private (set) var ball: Int
     private (set) var outCount: Int
@@ -19,7 +19,7 @@ struct MatchInfo: Codable {
     private (set) var pitcherInfo: [Bool]
     
     init() {
-        self.scores = Score(awayScore: 0, homeScore: 0)
+        self.scores = ScoreInfo(homeName:"", awayName: "", awayScore: 0, homeScore: 0)
         self.strike = 0
         self.ball = 0
         self.outCount = 0
