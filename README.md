@@ -15,12 +15,6 @@
 웹이나 앱 화면 디자인은 사용자 경험을 유지하면서 팀별로 자율적으로 적용해도 된다.
 ```
 
-## 회의실
-
-- [모각코 회의실](https://zoom.us/j/9139787540?pwd=K0gvZGpRRHphdTFDK0FSR0g3aExNdz09)
-- [iOS 수업 회의실](https://zoom.us/j/6239506083?pwd=YjZ4OUQxclhRWmZwdGZQdDdWamFWQT09)
-- [BE 수업 회의실](https://zoom.us/j/5996704860?pwd=NmxDSGJnaEl5YnB3Ky9RR09LNnlEQT09)
-
 ## 커뮤니케이션
 
 - 10시에 스크럼: 잡담 시간으로 잠깨우기
